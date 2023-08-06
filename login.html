@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="icon" href="image/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="image/icon.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="function.css">
+</head>
+<body class="login">
+    <h2>Login</h2>
+    <form id="addForm" onsubmit="return login()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+
+        <button id="log" type="submit">Login</button><br>
+    </form>
+    <div id="addForm">
+        <button id="log" onclick="back()">Back</button>
+    </div>
+    <script>
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Check if username and password are correct
+            if (username === "ad" && password === "123") {
+                alert("Login successful!");
+                window.location.href = "admin.html";
+            } else {
+                alert("Unable to login. Incorrect username or password.");
+            }
+
+            return false; // Prevent form submission
+        }
+        function back() {
+            window.location.href = "index.html"
+        }
+    </script>
+</body>
+</html>

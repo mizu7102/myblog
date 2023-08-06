@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Page</title>
+    <link rel="icon" href="image/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="image/icon.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="function.css">       
+</head>
+<body class="addnew">
+    <div id="addForm">
+        <label for="headingInput">New Heading:</label>
+        <input type="text" id="headingInput" />
+    </div>
+    <div id="addForm">
+        <label for="contentInput">New Content:</label>
+        <textarea id="contentInput" rows="6" cols="70" required></textarea>
+    </div>
+    <div id="addForm">
+        <label for="imageInput">New Image URL:</label>
+        <input type="text" id="imageInput" />
+    </div>
+    <button id="addForm" style="background-color: green;" onclick="saveData()">Save</button><br>
+    <button id="addForm" style="background-color: red" onclick="cancel()">Cancel</button>
+    
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const indexToUpdate = parseInt(urlParams.get("index"));
+
+        // Retrieve data from localStorage
+        const data = JSON.parse(localStorage.getItem("data"));
+
+        if (data && indexToUpdate >= 0 && indexToUpdate < data.length) {
+            const headingInput = document.getElementById("headingInput");
+            const contentInput = document.getElementById("contentInput");
+            const imageInput = document.getElementById("imageInput");
+
+            // Populate input fields with the selected data from the index page
+            const selectedData = data[indexToUpdate];
+            headingInput.value = selectedData.heading;
+            contentInput.value = selectedData.content;
+            imageInput.value = selectedData.image;
+        } else {
+            alert("Invalid index or data not found.");
+        }
+
+        function saveData() {
+            const heading = document.getElementById("headingInput").value;
+            const content = document.getElementById("contentInput").value;
+            const image = document.getElementById("imageInput").value;
+
+            if (data && indexToUpdate >= 0 && indexToUpdate < data.length) {
+                // Update the selected entry in the array
+                data[indexToUpdate].heading = heading;
+                data[indexToUpdate].content = content;
+                data[indexToUpdate].image = image;
+
+                // Save the updated data back to localStorage
+                localStorage.setItem("data", JSON.stringify(data));
+
+                // Redirect to the index page
+                window.location.href = "admin.html";
+            } else {
+                alert("Invalid index or data not found.");
+            }
+        }
+        function cancel() {
+            window.location.href = "admin.html";
+        }
+    </script>
+</body>
+</html>

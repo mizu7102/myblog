@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>You are guess to my blog!</title> 
+		<link rel="icon" href="image/icon.png" type="image/x-icon">
+    	<link rel="shortcut icon" href="image/icon.png" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="default.css">
+	</head>
+	<body>
+		<div id="wrapper">
+			<main>
+				<div id="content">
+					<div class="innertube">
+						<h1 style="color:azure; font-family: cursive;">This is my blog!</h1>
+						<div class="introduction">
+                            Hello!
+                        </div>
+						<div id="output">
+        				<!-- heading and content -->
+    					</div>
+						<ul id="entryList"> <p>
+							<!-- list-->
+						</p></ul>
+						<script>
+							//check logged in
+							const isLoggedIn = true;
+
+							if (isLoggedIn) {
+								//data
+								const data = JSON.parse(localStorage.getItem("data"));
+
+								if (data && data.length > 0) {
+									const entryList = document.getElementById("entryList");
+
+									data.forEach((entry, index) => {
+										const listItem = document.createElement("li");
+										listItem.classList.add("entry");
+										listItem.innerHTML = `
+											<h3>${entry.heading}</h3>
+											<p>${entry.content}</p>
+									`;
+			
+									if (entry.image && entry.image.trim() !== "") {
+										const imgElement = document.createElement("img");
+										imgElement.src = entry.image;
+										imgElement.alt = "Entry Image";
+										listItem.appendChild(imgElement);
+									}
+
+									// Create a container div for the buttons
+									const buttonsContainer = document.createElement("div");
+
+
+									// Append the buttons container to the list item
+									listItem.appendChild(buttonsContainer);
+
+									entryList.appendChild(listItem);
+								});
+								} else {
+									alert("No entries found.");
+								}
+							
+                                // Retrieve the introduction from localStorage
+                                const savedIntroduction = localStorage.getItem("introduction");
+
+                                if (savedIntroduction) {
+                                    // Display the introduction on the guess.html page
+                                    document.querySelector('.introduction').innerText = savedIntroduction;
+                                } else {
+                                    // Show a default message if the introduction is not available
+                                    document.querySelector('.introduction').innerText = "Welcome to Guess Page!";
+                                }
+                            }
+						</script>
+					</div>
+				</div>
+			</main>
+			<nav id="nav">
+				<div class="innertube">
+                    <h2>My Information</h2>
+                        <img style="max-width: 100%; height: auto; border-radius: 20px;" src= "image/cute-kitty-animated-gif-28.gif">
+						<p><li><a><strong>Name:</strong> <span id="name"></span></li></a></p>
+						<p><li><a><strong>Birthdate:</strong> <span id="birthdate"></span></li></a></p>
+						<p><li><a><strong>Sex:</strong> <span id="sex"></span></li></a></p>
+						<p><li><a><strong>I Like:</strong><span id="like"></span></li></a></p>
+					</div>
+				
+					<script>
+						// Retrieve user information from localStorage
+						const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+				
+						if (userInfo) {
+							// Display user information on the index page
+							document.getElementById("name").textContent = userInfo.name;
+							document.getElementById("birthdate").textContent = userInfo.birthdate;
+							document.getElementById("sex").textContent = userInfo.sex;
+							document.getElementById("like").textContent = userInfo.like;
+						} else {
+							// Show a message if user information is not available
+							alert("User information not found. Please add information using Add Info page.");
+						}
+					</script>
+					<h3>More function</h3>
+					<ul style="font-weight: bold;">
+						<li><a href="login.html">Login</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AddNew</title>
+    <link rel="icon" href="image/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="image/icon.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="function.css">
+</head>
+<body class="addnew">
+    <div id="addForm">
+        <label for="headingInput">Heading:</label>
+        <input type="text" id="headingInput" />
+
+        <label for="contentInput">Content:</label>
+        <textarea id="contentInput" rows="6" cols="70" required></textarea>
+
+        <label for="imageInput">Image URL:</label>
+        <input type="text" id="imageInput" />
+
+        <button style="background-color: green;" onclick="saveData()">Submit</button><br>
+        <button style="background-color: red" onclick="cancel()">Cancel</button>
+    </div>
+    <script>
+        function saveData() {
+            const heading = document.getElementById("headingInput").value;
+            const content = document.getElementById("contentInput").value;
+            const image = document.getElementById("imageInput").value;
+
+            // Get existing data from localStorage or create an empty array
+            const existingData = JSON.parse(localStorage.getItem("data")) || [];
+
+            // Add the new entry to the array
+            existingData.push({ heading, content,  image });
+
+            // Save the updated data back to localStorage
+            localStorage.setItem("data", JSON.stringify(existingData));
+
+            // Redirect to the index page
+            window.location.href = "admin.html";
+        }
+        function cancel() {
+            window.location.href = "admin.html";
+        }
+    </script>
+</body>
+</html>

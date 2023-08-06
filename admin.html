@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>This is my blog!</title> 
+		<link rel="icon" href="image/icon.png" type="image/x-icon">
+    	<link rel="shortcut icon" href="image/icon.png" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="default.css">
+	</head>
+	<body>
+		<div id="wrapper">
+			<main>
+				<div id="content">
+					<div class="innertube">
+						<h1 style="color:azure; font-family: cursive;">This is my blog!</h1>
+						<div class="introduction" contenteditable="true" oninput="saveIntroduction()">
+							Hello!
+						</div>
+						<div id="output">
+        				<!-- heading and content -->
+    					</div>
+						<ul id="entryList"> <p>
+							<!-- list-->
+						</p></ul>
+						<script>
+							//check logged in
+							const isLoggedIn = true;
+
+							if (isLoggedIn) {
+								//data
+								const data = JSON.parse(localStorage.getItem("data"));
+
+								if (data && data.length > 0) {
+									const entryList = document.getElementById("entryList");
+
+									data.forEach((entry, index) => {
+										const listItem = document.createElement("li");
+										listItem.classList.add("entry");
+										listItem.innerHTML = `
+											<h3>${entry.heading}</h3>
+											<p>${entry.content}</p>
+									`;
+			
+									if (entry.image && entry.image.trim() !== "") {
+										const imgElement = document.createElement("img");
+										imgElement.src = entry.image;
+										imgElement.alt = "Entry Image";
+										listItem.appendChild(imgElement);
+									}
+
+									// Create a container div for the buttons
+									const buttonsContainer = document.createElement("div");
+
+									// Create update and delete buttons for each entry
+									const updateButton = document.createElement("button");
+									updateButton.className = "update-btn";
+									updateButton.textContent = "Update";
+									updateButton.onclick = () => redirectToUpdatePage(index);
+									buttonsContainer.appendChild(updateButton);
+
+									const deleteButton = document.createElement("button");
+									deleteButton.className = "delete-btn";
+									deleteButton.textContent = "Delete";
+									deleteButton.onclick = () => showDeleteConfirmation(index);
+									buttonsContainer.appendChild(deleteButton);
+
+									// Append the buttons container to the list item
+									listItem.appendChild(buttonsContainer);
+
+									entryList.appendChild(listItem);
+								});
+								} else {
+									alert("No entries found.");
+								}
+
+								function redirectToUpdatePage(index) {
+									window.location.href = `update.html?index=${index}`;
+								}
+
+								function showDeleteConfirmation(index) {
+									const confirmed = confirm("Are you sure you want to delete this entry?");
+									if (confirmed) {
+										// Delete the entry from data array
+										data.splice(index, 1);
+
+										// Update localStorage with the new data
+										localStorage.setItem("data", JSON.stringify(data));
+
+										// Reload the entry list to reflect the changes
+										location.reload();
+									}
+								}
+								function logout() {
+									// Perform any logout logic here if needed
+									window.location.href = "logout.html";
+								
+								}
+								// Save the introduction to localStorage
+								function saveIntroduction() {
+									const introduction = document.querySelector('.introduction').innerText;
+									localStorage.setItem("introduction", introduction);
+								}
+
+								// Retrieve and display the introduction from localStorage
+								const savedIntroduction = localStorage.getItem("introduction");
+								if (savedIntroduction) {
+									document.querySelector('.introduction').innerText = savedIntroduction;
+								}
+							}
+						</script>
+					</div>
+				</div>
+			</main>
+			<nav id="nav">
+				<div class="innertube">
+					<div class="info-container">
+						<h2>My Information</h2>
+						<img style="max-width: 100%; height: auto; border-radius: 20px;" src= "image/cute-kitty-animated-gif-28.gif">
+						<p><li><a><strong>Name:</strong> <span id="name"></span></li></a></p>
+						<p><li><a><strong>Birthdate:</strong> <span id="birthdate"></span></li></a></p>
+						<p><li><a><strong>Sex:</strong> <span id="sex"></span></li></a></p>
+						<p><li><a><strong>I Like:</strong><span id="like"></span></li></a></p>
+					</div>
+				
+					<script>
+						// Retrieve user information from localStorage
+						const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+				
+						// Display user information on the index page
+						document.getElementById("name").textContent = userInfo.name;
+						document.getElementById("birthdate").textContent = userInfo.birthdate;
+						document.getElementById("sex").textContent = userInfo.sex;
+						document.getElementById("like").textContent = userInfo.like;
+					</script>
+					<h3>More function</h3>
+					<ul style="font-weight: bold;">
+						<li><a href = "addnew.html">Input</a></li>
+						<li><a href = "changeinfo.html">Change Info</a></li>
+						<li><a href="logout.html">Logout</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</body>
+</html>

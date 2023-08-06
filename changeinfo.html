@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Information</title>
+    <link rel="icon" href="image/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="image/icon.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="function.css">
+</head>
+<body class="addnew">
+    <h2 style="margin: auto;">Change Info</h2>
+    <div id="addInfo">
+        <label for="nameInput">New Name:</label>
+        <input type="text" id="nameInput"/><br>
+    </div>
+    <div id="addInfo">
+        <label for="birthdateInput">New Birthdate:</label>
+        <input type="date" id="birthdateInput"/><br>
+    </div>
+    <div id="addInfo">
+        <label for="sexInput">New Sex:</label>
+        <label>
+            <input type="radio" name="sex" id="maleInput" value="Male" > Male
+        </label><br>
+        <label>
+            <input type="radio" name="sex" id="femaleInput" value="Female" checked> Female
+        </label><br>
+    </div>
+    <div id="addInfo">
+        <label for="likeInput">New Like:</label>
+        <textarea id="likeInput" rows="6" cols="70"></textarea><br>
+
+    </div>
+    <button id="addForm" style="background-color: green;" onclick="updateInfo()">Update</button><br>
+    <button id="addForm" style="background-color: red" onclick="cancel()">Cancel</button>
+
+    <script>
+        // Retrieve user information from localStorage
+        const urlParams = new URLSearchParams(window.location.search);
+        const userInfo = JSON.parse(localStorage.getItem("userInfo")) || {};
+
+        if (userInfo) {
+            // Populate form fields with the current user information
+            document.getElementById("nameInput").value = userInfo.name || "";
+            document.getElementById("birthdateInput").value = userInfo.birthdate || "";
+            document.getElementById("maleInput").checked = userInfo.sex === "Male";
+            document.getElementById("femaleInput").checked = userInfo.sex === "Female";
+            document.getElementById("likeInput").value = userInfo.like || "";
+        } else {
+            alert("User information not found.");
+        }
+
+        function updateInfo() {
+            // Get the updated values from the form
+            const name = document.getElementById("nameInput").value;
+            const birthdate = document.getElementById("birthdateInput").value;
+            const sex = document.querySelector('input[name="sex"]:checked').value;
+            const like = document.getElementById("likeInput").value;
+
+            // Update the user information object
+            userInfo.name = name;
+            userInfo.birthdate = birthdate;
+            userInfo.sex = sex;
+            userInfo.like = like;
+
+            // Store the updated user information in localStorage
+            localStorage.setItem("userInfo", JSON.stringify(userInfo));
+
+            // Redirect to the index page
+            window.location.href = "admin.html";  
+
+        }
+        function cancel() {
+            // Redirect to the index page
+            window.location.href = "admin.html";
+
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+.login {
+    background-image: url('image/login.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 20px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: #fff;
+
+}
+.addnew{
+    background-image: url('image/addnew.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 20px;
+    font-family: cursive;
+    font-size: 15px;
+    color: #fff;
+
+}
+
+/* Container for the form */
+#addForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#addInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    max-width: 500px;
+    margin: auto;
+}
+
+/* Input boxes style */
+input[type="text"], input[type="password"], textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+/* Submit button style */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: lightcoral;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#log {
+    background-color:darkblue;
+    max-width: 500px;
+    padding: 10px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+p {
+    color: #ffffff;
+}
